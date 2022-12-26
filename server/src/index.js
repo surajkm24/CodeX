@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import {config} from 'dotenv';
+import { config } from 'dotenv';
+
+import codeRouter from './routes/code.router.js';
 
 config();
 
@@ -11,7 +13,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/',(req,res)=>{
+app.use('/code', codeRouter);
+
+app.get('/', (req, res) => {
     res.send('Server is running live.');
 })
 
