@@ -5,7 +5,11 @@ import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { useState } from 'react';
 
-export const Editor = ({ runCode }: { runCode: Function }) => {
+type props = {
+    loading: boolean;
+    runCode: Function;
+}
+export const Editor = ({ runCode, loading }: props) => {
     const [code, setCode] = useState<string>('');
 
     const writeCode = (value: string) => {
@@ -20,7 +24,7 @@ export const Editor = ({ runCode }: { runCode: Function }) => {
                 </Flex>
                 <Flex justify={'flex-end'} flexGrow={1} px='20px' py='7px' borderBottom='1px solid rgba(0,0,0,0.2)' borderLeft={'1px solid rgba(0,0,0,0.2)'}>
                     <Button colorScheme={'blue'} borderRadius='0px' h='30px' fontSize={'14px'}
-                        onClick={() => runCode(code)}>
+                        onClick={() => runCode(code)} isLoading={loading}>
                         Run
                     </Button>
                 </Flex>
