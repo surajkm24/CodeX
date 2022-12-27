@@ -5,7 +5,7 @@ import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { useState } from 'react';
 
-export const Editor = () => {
+export const Editor = ({ runCode }: { runCode: Function }) => {
     const [code, setCode] = useState<string>('');
 
     const writeCode = (value: string) => {
@@ -19,7 +19,8 @@ export const Editor = () => {
                     main.js
                 </Flex>
                 <Flex justify={'flex-end'} flexGrow={1} px='20px' py='7px' borderBottom='1px solid rgba(0,0,0,0.2)' borderLeft={'1px solid rgba(0,0,0,0.2)'}>
-                    <Button colorScheme={'blue'} borderRadius='0px' h='30px' fontSize={'14px'} >
+                    <Button colorScheme={'blue'} borderRadius='0px' h='30px' fontSize={'14px'}
+                        onClick={() => runCode(code)}>
                         Run
                     </Button>
                 </Flex>
@@ -29,20 +30,22 @@ export const Editor = () => {
                     mode="javascript"
                     theme="github"
                     name="blah2"
-                    fontSize={'15px'}
                     width='100%'
                     height='100%'
+                    onChange={writeCode}
+                    fontSize={14}
+                    showPrintMargin={true}
                     showGutter={true}
                     highlightActiveLine={true}
-                    onChange={writeCode}
-                    value={code}
+                    value={`${code}`}
                     setOptions={{
-                        enableBasicAutocompletion: true,
+                        enableBasicAutocompletion: false,
                         enableLiveAutocompletion: true,
-                        enableSnippets: true,
+                        enableSnippets: false,
                         showLineNumbers: true,
                         tabSize: 2,
                     }} />
+
             </Box>
         </Flex>
     )
