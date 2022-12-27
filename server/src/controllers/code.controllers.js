@@ -1,22 +1,16 @@
-import { execFile } from 'child_process';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { generateFile } from '../generateFile.js';
+import { executeJs } from '../executeJs.js';
 
 export const executeCode = async (req, res) => {
-    const lang = req.params.lang;
+    let { code } = req.body;
     try {
-        execFile('node',[`${__dirname}/test.js`], ((error, stdout, stderr) => {
-            res.send({ error, stdout, stderr,__dirname })
-        }))
-        // fs.readFile(__dirname+'/test.js','utf8',(err,data)=>{
-        //     res.send({data,__dirname})
-        // })
+        let filepath = await generateFile('js', code);
+        let logs = await executeJs(filepath);
+        res.send(logs);
     }
     catch (error) {
-        res.send('error')
+        res.send({ message: "Something went wrong.", error })
     }
 }
+
+executeCode();
