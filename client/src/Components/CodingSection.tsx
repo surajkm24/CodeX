@@ -25,7 +25,7 @@ export const CodingSection = () => {
         setOutput({ err: "", stdout: "", stderr: "" })
     }
     return (
-        <Flex flexGrow={1} border='1px solid rgba(0,0,0,0.2)'>
+        <Flex flexGrow={1} gap='10px' p='0px 10px 10px'>
             <Editor runCode={runCode} loading={loading} />
             <Output output={output} clearOutput={clearOutput} />
         </Flex>
