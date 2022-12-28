@@ -5,7 +5,7 @@ import { Header } from '../Components/Header';
 export const Home = () => {
     const { colorMode } = useColorMode();
     return (
-        <Flex flexDir={'column'} w='100vw' h='100vh' bg={colorMode === 'light' ? 'rgb(235,236,237)' : 'rgb(14,21,37)'}>
+        <Flex flexDir={'column'} w='100vw' h='100vh' bg={colorMode === 'light' ? 'rgb(235,236,237)' : 'rgb(14,21,37)'} overflow='hidden'>
             <Header />
             <CodingSection />
         </Flex>

@@ -5,9 +5,22 @@ body {
 }
 
 .ace-cobalt .ace_gutter {
-  background-color: rgb(28,35,51);
+  background-color: rgb(28, 35, 51);
 }
 
 .ace-cobalt {
   background-color: transparent !important;
+}
+
+.output_container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.output_container::-webkit-scrollbar-thumb {
+  background-color: rgb(88, 82, 214);
+  border-radius: 10px;
+}
+
+.output_container::-webkit-scrollbar-track {
+  background: rgb(32, 35, 43);
 }
