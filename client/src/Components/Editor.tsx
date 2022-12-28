@@ -8,35 +8,33 @@ import "ace-builds/src-noconflict/theme-solarized_dark";
 import "ace-builds/src-noconflict/theme-gruvbox";
 import "ace-builds/src-noconflict/theme-cobalt";
 import "ace-builds/src-noconflict/ext-language_tools";
-import { useState } from 'react';
 
 type props = {
     loading: boolean;
     runCode: Function;
+    code: string;
+    writeCode: Function;
 }
-export const Editor = ({ runCode, loading }: props) => {
-    const [code, setCode] = useState<string>('');
+export const Editor = ({ runCode, loading, code, writeCode }: props) => {
     const { colorMode } = useColorMode();
 
-    const writeCode = (value: string) => {
-        setCode(value);
-    }
-
     return (
-        <Flex w='50%' flexDir='column' borderRadius={'10px'} border='1px'
+        <Flex w={{ base: "100%", lg: '50%' }} flexDir='column' borderRadius={{ base: "0px 0px 10px 10px", lg: '10px' }} border='1px'
             borderColor={colorMode === 'light' ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.3)"}>
             <Flex justify='space-between' p='7px' align='center' borderBottom='1px'
                 bg={colorMode === 'light' ? "white" : "rgb(28,35,51)"}
                 borderColor={colorMode === 'light' ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.3)"}
-                borderRadius='10px 10px 0px 0px'>
+                borderRadius='10px 10px 0px 0px'
+                display={{ base: "none", lg: "flex" }}>
                 <Button variant='unstyled' fontWeight={400} fontSize='15px'
                     bg={colorMode === 'light' ? "rgba(0,0,0,0.1)" : 'rgb(43,50,69)'}
                     h='30px' p='0px 15px'
                     _hover={{ bg: colorMode === 'light' ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.2)" }}
+                    borderRadius='15px'
                 >
                     main.js
                 </Button>
-                <Button fontWeight={600} height='30px' borderRadius='3px' fontSize='14px' colorScheme='blue' onClick={() => runCode(code)} isLoading={loading}>
+                <Button fontWeight={600} height='30px' borderRadius='15px' fontSize='14px' colorScheme='blue' onClick={() => runCode(code)} isLoading={loading}>
                     Run
                 </Button>
             </Flex>
@@ -49,7 +47,7 @@ export const Editor = ({ runCode, loading }: props) => {
                         width='100%'
                         height='100%'
                         wrapEnabled={true}
-                        onChange={writeCode}
+                        onChange={(value) => writeCode(value)}
                         fontSize={15}
                         showPrintMargin={true}
                         showGutter={true}
@@ -64,11 +62,16 @@ export const Editor = ({ runCode, loading }: props) => {
                         }} />
 
                 </Box>
-                <Box py='15px'
+                <Box h='40px'
                     borderTop='1px'
                     bg={colorMode === 'light' ? "white" : "rgb(28,35,51)"}
                     borderColor={colorMode === 'light' ? "rgba(0,0,0,0.2)" : "rgba(255,255,255,0.3)"}
-                    borderRadius='0px 0px 10px 10px'>
+                    borderRadius='0px 0px 10px 10px'
+                    position={'relative'}>
+                    <Button fontWeight={600} height='30px' borderRadius='15px' fontSize='14px' colorScheme='whatsapp' onClick={() => runCode(code)} isLoading={loading}
+                    position='absolute' top='5px' right='5px' display={{base:"inline",lg:"none"}}>
+                        Run
+                    </Button>
                 </Box>
             </Flex>
         </Flex>
